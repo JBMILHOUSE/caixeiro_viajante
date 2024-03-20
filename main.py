@@ -5,8 +5,6 @@ n_cities = 17
  # linha - cidade
  # coluna - cidade
 distance = [
-  [
-        # fmt: off
       [0, 548, 776, 696, 582, 274, 502, 194, 308, 194, 536, 502, 388, 354, 468, 776, 662],
       [548, 0, 684, 308, 194, 502, 730, 354, 696, 742, 1084, 594, 480, 674, 1016, 868, 1210],
       [776, 684, 0, 992, 878, 502, 274, 810, 468, 742, 400, 1278, 1164, 1130, 788, 1552, 754],
@@ -24,8 +22,6 @@ distance = [
       [468, 1016, 788, 1164, 1050, 514, 514, 662, 320, 274, 388, 650, 536, 342, 0, 764, 194],
       [776, 868, 1552, 560, 674, 1050, 1278, 742, 1084, 810, 1152, 274, 388, 422, 764, 0, 798],
       [662, 1210, 754, 1358, 1244, 708, 480, 856, 514, 468, 354, 844, 730, 536, 194, 798, 0],
-        # fmt: on
-    ]
 ]
 
 # distancia total 
@@ -33,13 +29,12 @@ def get_total_distance(tour: list):
 
     total_distance = 0
 
-
     for city in range(n_cities - 1):
-       total_distance = total_distance + distance[tour[city]][tour[city + 1]]
-
-    total_distance = total_distance + distance[tour[-1]][tour[0]]
+       total_distance += distance[tour[city]][tour[city + 1]]
+    total_distance += distance[tour[-1]][tour[0]]
 
     return total_distance
+
 
 #
 def nearest_neighbor_heuristic():
@@ -47,9 +42,19 @@ def nearest_neighbor_heuristic():
     #lista vazia
     tour = [0]
 
-
+    # Lista de cidades não visitadas
     unvisited = list(range(1, n_cities))
 
     while unvisited:
-        
-      next = min(distance[tour[-1]])
+      current_city = tour[-1]
+      next_city = min(unvisited, key=lambda city: distance[current_city][city])
+      tour.append(next_city)
+      unvisited.remove(next_city)
+
+      tour.append(tour[0])
+      return tour
+
+
+result_tour = nearest_neighbor_heuristic()
+print("Caminho encontrado pela heurística do vizinho mais próximo: ", result_tour)
+print("Distância total do caminho: ", get_total_distance(result_tour))

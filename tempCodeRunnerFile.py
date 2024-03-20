@@ -1,0 +1,1 @@
+print("Distância total do caminho: ", get_total_distance(result_tour))
