@@ -1,9 +1,6 @@
 # numero de cidade
 n_cities = 17
 
- # matriz de distancia entre cidades 
- # linha - cidade
- # coluna - cidade
 distance = [
       [0, 548, 776, 696, 582, 274, 502, 194, 308, 194, 536, 502, 388, 354, 468, 776, 662],
       [548, 0, 684, 308, 194, 502, 730, 354, 696, 742, 1084, 594, 480, 674, 1016, 868, 1210],
@@ -24,9 +21,8 @@ distance = [
       [662, 1210, 754, 1358, 1244, 708, 480, 856, 514, 468, 354, 844, 730, 536, 194, 798, 0],
 ]
 
-# distancia total 
+# distancia total
 def get_total_distance(tour: list):
-
     total_distance = 0
 
     for city in range(n_cities - 1):
@@ -35,26 +31,46 @@ def get_total_distance(tour: list):
 
     return total_distance
 
-
-#
-def nearest_neighbor_heuristic():
-    
+# função heuristica do vizinho mais próximo
+def nearest_neighbor_heuristic(): 
     #lista vazia
     tour = [0]
-
     # Lista de cidades não visitadas
     unvisited = list(range(1, n_cities))
+    
 
     while unvisited:
-      current_city = tour[-1]
-      next_city = min(unvisited, key=lambda city: distance[current_city][city])
-      tour.append(next_city)
-      unvisited.remove(next_city)
+       current_city = tour[-1]
+       next_city = None
+       min_distance = float('inf')
 
-      tour.append(tour[0])
-      return tour
+       for city in unvisited:
+           if distance[current_city][city] < min_distance:
+                min_distance = distance[current_city][city]
+                next_city = city
+           
+       tour.append(next_city)
+       unvisited.remove(next_city)
 
+    tour.append(tour[0])
+    return tour
 
+# obtendo do usuário a quantidade de caixeiros
+# e verificando se menor ou igual n_cities
+def quantity_cashier(): 
+    while True:
+        try:
+            quantity_travellin = int(input('Informe a quantidade de caixeiros viajantes: '))
+            if quantity_travellin <= n_cities:
+                return quantity_travellin
+            else:
+                print('A quantidade de caixeiros viajante informada deve ser menor ou igual ao número de cidades.')
+        except ValueError:
+            print('Por favor, digite um número inteiro válido')
+                     
+
+qtd_cashier = quantity_cashier()
 result_tour = nearest_neighbor_heuristic()
-print("Caminho encontrado pela heurística do vizinho mais próximo: ", result_tour)
-print("Distância total do caminho: ", get_total_distance(result_tour))
+print('Quantidade de caixeiros selecionada: ', qtd_cashier)
+print('Caminho encontrado pela heurística do vizinho mais próximo: ', result_tour)
+print('Distância total do caminho: ', get_total_distance(result_tour))
