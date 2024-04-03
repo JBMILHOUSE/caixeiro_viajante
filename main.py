@@ -38,7 +38,6 @@ def nearest_neighbor_heuristic():
     # Lista de cidades não visitadas
     unvisited = list(range(1, n_cities))
     
-
     while unvisited:
        current_city = tour[-1]
        next_city = None
@@ -55,22 +54,48 @@ def nearest_neighbor_heuristic():
     tour.append(tour[0])
     return tour
 
+#vizinho mais distante
+def farthest_neighbor_heuristic(): 
+    tour = [0]
+    unvisited = list(range(1, n_cities))
+    
+    while unvisited:
+       current_city = tour[-1]
+       farthest_distance = 0
+       farthest_city = None
+
+       for city in unvisited:
+           if distance[current_city][city] > farthest_distance:
+                farthest_distance = distance[current_city][city]
+                farthest_city = city
+           
+       tour.append(farthest_city)
+       unvisited.remove(farthest_city)
+
+    tour.append(tour[0])
+    return tour
+
 # obtendo do usuário a quantidade de caixeiros
 # e verificando se menor ou igual n_cities
-def quantity_cashier(): 
+def quantity_traveling_salesman(): 
     while True:
         try:
-            quantity_travellin = int(input('Informe a quantidade de caixeiros viajantes: '))
-            if quantity_travellin <= n_cities:
-                return quantity_travellin
+            quantity_traveling = int(input('Informe a quantidade de caixeiros viajantes: '))
+            if quantity_traveling <= n_cities:
+                return quantity_traveling
             else:
                 print('A quantidade de caixeiros viajante informada deve ser menor ou igual ao número de cidades.')
         except ValueError:
             print('Por favor, digite um número inteiro válido')
                      
 
-qtd_cashier = quantity_cashier()
-result_tour = nearest_neighbor_heuristic()
-print('Quantidade de caixeiros selecionada: ', qtd_cashier)
-print('Caminho encontrado pela heurística do vizinho mais próximo: ', result_tour)
-print('Distância total do caminho: ', get_total_distance(result_tour))
+qtd_traveling = quantity_traveling_salesman()
+rota_nearest_neighbor = nearest_neighbor_heuristic()
+rota_farthest_neighbor = farthest_neighbor_heuristic()
+
+print('Quantidade de caixeiros selecionada: ', qtd_traveling)
+print('Caminho encontrado pela heurística do vizinho mais próximo: ', rota_nearest_neighbor)
+print('Caminho encontrado pela heurística do vizinho mais distante: ', rota_farthest_neighbor)
+
+print('Distância total do caminho do vizinho mais próximo: ', get_total_distance(rota_nearest_neighbor))
+print('Distância total do caminho do vizinho mais distante: ', get_total_distance(rota_farthest_neighbor))

@@ -3,7 +3,7 @@ O Problema do Caixeiro Viajante (PCV) é um problema clássico de otimização c
 
 ## :bookmark: Desafio
 - [x] Implementar algoritmo de perguntar ao usuário a quantidade de caixeiros viajantes, verificar se quantidade de caixeiros é menor ou igual de número de cidades.
-- [ ] Implementação de heurística diferente. 
+- [x] Implementação de heurística diferente. 
 
 
 ## :fire: Como Usar
