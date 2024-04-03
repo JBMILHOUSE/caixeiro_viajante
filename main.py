@@ -21,6 +21,15 @@ distance = [
       [662, 1210, 754, 1358, 1244, 708, 480, 856, 514, 468, 354, 844, 730, 536, 194, 798, 0],
 ]
 
+"""
+15
+Introducao, heuristica construtiva, experimentos computacionais, instancias de teste e resultados
+coordenadas -- exemplos
+d(a, b) =  raiz quadrada de 2 (xA - xB) sobre 2 + (yA - yB) arredondar para cima
+
+prazo para entrega quarta-feira da semana de que vem... deus é pai mais nao é padastro
+"""
+
 # distancia total
 def get_total_distance(tour: list):
     total_distance = 0
