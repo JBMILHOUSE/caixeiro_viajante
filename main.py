@@ -1,3 +1,8 @@
+"""
+ Implementação base do problema do caixeiro viajante
+ desenvolvida durante as aulas de Tópicos em inteligência artificial
+
+"""
 # numero de cidade
 n_cities = 17
 
@@ -22,7 +27,6 @@ distance = [
 ]
 
 """
-15
 Introducao, heuristica construtiva, experimentos computacionais, instancias de teste e resultados
 coordenadas -- exemplos
 d(a, b) =  raiz quadrada de 2 (xA - xB) sobre 2 + (yA - yB) arredondar para cima
@@ -83,26 +87,11 @@ def farthest_neighbor_heuristic():
 
     tour.append(tour[0])
     return tour
+                                          
 
-# obtendo do usuário a quantidade de caixeiros
-# e verificando se menor ou igual n_cities
-def quantity_traveling_salesman(): 
-    while True:
-        try:
-            quantity_traveling = int(input('Informe a quantidade de caixeiros viajantes: '))
-            if quantity_traveling <= n_cities:
-                return quantity_traveling
-            else:
-                print('A quantidade de caixeiros viajante informada deve ser menor ou igual ao número de cidades.')
-        except ValueError:
-            print('Por favor, digite um número inteiro válido')
-                     
-
-qtd_traveling = quantity_traveling_salesman()
 rota_nearest_neighbor = nearest_neighbor_heuristic()
 rota_farthest_neighbor = farthest_neighbor_heuristic()
 
-print('Quantidade de caixeiros selecionada: ', qtd_traveling)
 print('Caminho encontrado pela heurística do vizinho mais próximo: ', rota_nearest_neighbor)
 print('Caminho encontrado pela heurística do vizinho mais distante: ', rota_farthest_neighbor)
 
