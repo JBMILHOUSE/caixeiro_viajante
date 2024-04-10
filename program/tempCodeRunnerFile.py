@@ -1,1 +1,0 @@
-rota_vizinho_mais_proximo
